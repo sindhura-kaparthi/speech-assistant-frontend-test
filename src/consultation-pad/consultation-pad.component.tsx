@@ -1,5 +1,6 @@
 import React from 'react'
 import {Modal} from '@carbon/react'
+import SocketConnectionButton from '../socket-connection-button'
 
 export const ConsultationPad = ({setShowConsultationPad}) => {
   const closeConsultationPad = () => {
@@ -14,7 +15,9 @@ export const ConsultationPad = ({setShowConsultationPad}) => {
         passiveModal={true}
         title="ConsultationPad"
       >
-        <span>Hello This is a div</span>
+        <span>
+          <SocketConnectionButton />
+        </span>
       </Modal>
     </>
   )
