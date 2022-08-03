@@ -45,6 +45,11 @@ const config = {
         use: ['style-loader', cssLoader, 'sass-loader'],
         exclude: /node_modules/,
       },
+      {
+        test: /\.css$/,
+        use: ['style-loader', cssLoader],
+        exclude: /node_modules/,
+      },
     ],
   },
   plugins: [
@@ -55,7 +60,7 @@ const config = {
     }),
   ],
   resolve: {
-    extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss'],
+    extensions: ['.tsx', '.ts', '.jsx', '.js', '.scss', '.css'],
   },
 }
 
