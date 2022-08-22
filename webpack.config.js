@@ -21,7 +21,6 @@ const cssLoader = {
     },
   },
 }
-
 const config = {
   mode: 'development',
   entry: './src/index.tsx',
