@@ -2,13 +2,15 @@ import {render, screen, waitFor} from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import React from 'react'
 import SocketConnection from '../../utils/socket-connection/socket-connection'
+
 import {ConsultationPadContents} from './consultation-pad-contents'
+
 jest.mock('../../utils/socket-connection/socket-connection')
 
 describe('Consultation Pad Contents', () => {
   afterEach(() => jest.clearAllMocks())
 
-  it('should show the textbox, start mic and save button when consultation pad contents component is rendered', async () => {
+  it('should show the textbox, start mic and save button when consultation pad contents component is rendered', () => {
     render(<ConsultationPadContents />)
 
     expect(screen.getByRole('textbox')).toBeInTheDocument()
@@ -68,7 +70,7 @@ describe('Consultation Pad Contents', () => {
     })
   })
 
-  it('should enable save button when text is present in text area', async () => {
+  it('should enable save button when text is present in text area', () => {
     const mockSocketConnection = {
       handleStart: jest.fn(),
       handleStop: jest.fn(),
