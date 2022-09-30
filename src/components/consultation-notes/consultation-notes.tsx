@@ -1,5 +1,5 @@
 import {ConsultationPad} from '../consultation-pad/consultation-pad'
-import React, {useCallback, useContext, useState} from 'react'
+import React, {useCallback, useContext, useEffect, useState} from 'react'
 import {Button} from '@carbon/react'
 import {MicrophoneFilled} from '@carbon/icons-react'
 import styles from './consultation-notes.scss'
@@ -14,8 +14,12 @@ function ConsultationNotes() {
     [],
   )
 
+  useEffect(() => {
+    if (!patientDetails?.isActiveVisit) setShowConsultationPad(false)
+  }, [patientDetails?.isActiveVisit])
+
   return (
-    patientDetails?.activeVisit &&
+    patientDetails?.isActiveVisit &&
     (showConsultationPad ? (
       <ConsultationPad setShowConsultationPad={setShowConsultationPad} />
     ) : (
