@@ -1,37 +1,26 @@
+import React, {useState} from 'react'
 import {ConsultationPad} from '../consultation-pad/consultation-pad'
-import React, {useCallback, useContext, useEffect, useState} from 'react'
-import {Button} from '@carbon/react'
-import {MicrophoneFilled} from '@carbon/icons-react'
-import styles from './consultation-notes.scss'
-import {ConsultationContext} from '../../context/consultation-context'
+import {FloatingConsultationButton} from '../floating-consultation-button/floating-consultation-button'
 
 function ConsultationNotes() {
   const [showConsultationPad, setShowConsultationPad] = useState(false)
-  const patientDetails = useContext(ConsultationContext)
+  const [consultationText, setConsultationText] = useState('')
+  const [savedNotes, setSavedNotes] = useState('')
 
-  const clickConsultationPadButton = useCallback(
-    () => setShowConsultationPad(true),
-    [],
-  )
-
-  useEffect(() => {
-    if (!patientDetails?.isActiveVisit) setShowConsultationPad(false)
-  }, [patientDetails?.isActiveVisit])
-
-  return (
-    patientDetails?.isActiveVisit &&
-    (showConsultationPad ? (
-      <ConsultationPad setShowConsultationPad={setShowConsultationPad} />
-    ) : (
-      <Button
-        id="consultationButton"
-        onClick={clickConsultationPadButton}
-        className={styles.floating}
-      >
-        <MicrophoneFilled size="20" />
-        <div className="consultationPadText">Consultation Pad</div>
-      </Button>
-    ))
+  return showConsultationPad ? (
+    <ConsultationPad
+      consultationText={consultationText}
+      setConsultationText={setConsultationText}
+      setShowConsultationPad={setShowConsultationPad}
+      setSavedNotes={setSavedNotes}
+    />
+  ) : (
+    <FloatingConsultationButton
+      isUnsavedNotesPresent={
+        consultationText != savedNotes && consultationText != ''
+      }
+      setShowConsultationPad={setShowConsultationPad}
+    />
   )
 }
 

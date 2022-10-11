@@ -14,16 +14,31 @@ import {
   setConsultationNotes,
 } from '../bahmni/bahmni-save-button-listener/save-button-listener'
 
-export function ConsultationPadContents({closeConsultationPad}) {
+export function ConsultationPadContents({
+  closeConsultationPad,
+  consultationText,
+  setConsultationText,
+  setSavedNotes,
+}) {
   const [isRecording, setIsRecording] = useState(false)
-  const [consultationText, setConsultationText] = useState('')
   const [socketConnection, setSocketConnection] = useState(null)
+  const [recordedText, setRecordedText] = useState('')
 
   const patientDetails: PatientDetails = useContext(ConsultationContext)
 
+  useEffect(() => {
+    if (!isRecording && recordedText != '') {
+      consultationText
+        ? setConsultationText(`${consultationText} ${recordedText}`)
+        : setConsultationText(recordedText)
+      setRecordedText('')
+    }
+  }, [isRecording])
+
   const onIncomingMessage = (message: string) => {
-    setConsultationText(message)
+    setRecordedText(message)
   }
+
   const onRecording = (isRecording: boolean) => {
     setIsRecording(isRecording)
   }
@@ -39,12 +54,16 @@ export function ConsultationPadContents({closeConsultationPad}) {
     setConsultationNotes(consultationText)
   }, [consultationText])
 
+  const clickStopMic = useCallback(() => {
+    socketConnection.handleStop()
+  }, [socketConnection])
+
   const renderStopMic = () => {
     return (
       <>
         <StopFilled
           className={styles.stopIcon}
-          onClick={() => socketConnection.handleStop()}
+          onClick={clickStopMic}
           aria-label="Stop Mic"
         />
         <h6>Listening</h6>
@@ -52,12 +71,16 @@ export function ConsultationPadContents({closeConsultationPad}) {
     )
   }
 
+  const clickStartMic = useCallback(() => {
+    socketConnection.handleStart()
+  }, [socketConnection])
+
   const renderStartMic = () => {
     return (
       <>
         <MicrophoneFilled
           className={styles.microphoneIcon}
-          onClick={() => socketConnection.handleStart()}
+          onClick={clickStartMic}
           aria-label="Start Mic"
         />
         <h6 className="styles.heading">Start Recording</h6>
@@ -65,20 +88,45 @@ export function ConsultationPadContents({closeConsultationPad}) {
     )
   }
 
+  const appendRecordedText = () => {
+    return consultationText
+      ? `${consultationText} ${recordedText}`
+      : recordedText
+  }
+
+  const setCursorAtEnd = useCallback(event => {
+    const textLength = event.currentTarget.value.length
+    event.currentTarget.setSelectionRange(textLength, textLength)
+  }, [])
+
+  const setText = useCallback(event => {
+    setConsultationText(event.target.value)
+  }, [])
+
+  const focusTextarea = useCallback(
+    input => {
+      input && input.focus()
+    },
+    [isRecording],
+  )
+
   const renderTextArea = () => {
     return (
       <TextArea
-        onChange={event => setConsultationText(event.target.value)}
+        onChange={setText}
         labelText=""
-        ref={input => input && input.focus()}
-        value={consultationText}
+        ref={focusTextarea}
+        value={recordedText ? appendRecordedText() : consultationText}
         style={{backgroundColor: 'white'}}
-      ></TextArea>
+        onFocus={setCursorAtEnd}
+        readOnly={isRecording}
+      />
     )
   }
 
   const clickSaveButton = useCallback(() => {
     saveConsultationNotes(consultationText, patientDetails)
+    setSavedNotes(consultationText)
     closeConsultationPad()
   }, [consultationText])
 
@@ -89,7 +137,7 @@ export function ConsultationPadContents({closeConsultationPad}) {
         {isRecording ? renderStopMic() : renderStartMic()}
         <Button
           className={styles.saveButton}
-          disabled={consultationText == ''}
+          disabled={consultationText == '' && recordedText == ''}
           onClick={clickSaveButton}
         >
           Save Notes
