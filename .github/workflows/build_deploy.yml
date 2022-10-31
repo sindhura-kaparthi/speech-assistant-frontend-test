@@ -7,6 +7,9 @@ jobs:
   build-deploy:
     name: Build , Test and Deploy
     runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
     steps:
       - uses: actions/checkout@v2
       - name: Setup Node.js 16.x
@@ -18,9 +21,8 @@ jobs:
       - run: yarn typescript
       - run: yarn test
       - run: yarn build
-      - name: Deploy to GH Page
-        uses: JamesIves/github-pages-deploy-action@4.1.1
+      - name: Deploy to GH page
+        uses: actions/deploy-pages@v1
         with:
           branch: gh-pages
           folder: dist/bundle
-
