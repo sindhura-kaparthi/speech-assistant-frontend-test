@@ -49,7 +49,7 @@ jobs:
         run: |
           git config user.name sindhura-kaparthi
           git config user.email sindhura.kaparthi@thoughtworks.com
-          git remote set-url --push origin https://sindhura-kaparthi:${{ secrets.GITHUB_TOKEN }}@github.com/sindhura-kaparthi/speech-assistant-frontend-test
+          git remote set-url origin https://sindhura-kaparthi:${{ secrets.GITHUB_TOKEN }}@github.com/speech-assistant-frontend-test
           git subtree push --prefix dist origin gh-pages
       - name: Deploy to GitHub Pages
         id: deployment
