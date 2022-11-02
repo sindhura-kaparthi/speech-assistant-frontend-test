@@ -49,7 +49,7 @@ jobs:
         run: |
           git config user.name sindhura-kaparthi
           git config user.email sindhura.kaparthi@thoughtworks.com
-          git subtree push --prefix dist origin gh-pages
+          git subtree push --prefix dist 'https://sindhura-kaparthi:${{ secrets.ACTIONS_DEPLOY_KEY}}@github.com/bahmni/helm-charts.git' gh-pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
