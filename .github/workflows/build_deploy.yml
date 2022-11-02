@@ -50,7 +50,7 @@ jobs:
           git config user.email sindhura.kaparthi@thoughtworks.com
           git add .
           git commit -m "Release of sa"
-          git push 'https://sindhura-kaparthi@github.com/bahmni/speech-assistant-frontend-test.git' gh-pages
+          git subtree push --prefix dist 'https://sindhura-kaparthi@github.com/bahmni/speech-assistant-frontend-test.git' gh-pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
