@@ -40,6 +40,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
+          repository: sindhura-kaparthi/speech-assistant-frontend-test
           ref: gh-pages
           path: speech-assistant-frontend-test
       - name: Deploy to GitHub Pages
