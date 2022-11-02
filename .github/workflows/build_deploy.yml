@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
         with:
           persist-credentials: true
           repository: sindhura-kaparthi/speech-assistant-frontend-test
@@ -49,7 +49,7 @@ jobs:
         run: |
           git config user.name sindhura-kaparthi
           git config user.email sindhura.kaparthi@thoughtworks.com
-          git remote set-url origin https://sindhura-kaparthi:${{ secrets.MY_PAT1 }}@github.com/${{ github.repository }}
+          git remote set-url origin https://sindhura-kaparthi:${{ secrets.PAT }}@github.com/${{ github.repository }}
           git subtree push --prefix dist origin gh-pages
       - name: Deploy to GitHub Pages
         id: deployment
