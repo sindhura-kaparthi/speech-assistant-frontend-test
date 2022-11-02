@@ -46,7 +46,7 @@ jobs:
         run: |
           git config user.name sindhura-kaparthi
           git config user.email sindhura.kaparthi@thoughtworks.com
-          git remote set-url origin https://sindhura-kaparthi:${{ secrets.PAT }}@github.com/${{ github.repository }}
+          git remote set-url origin https://sindhura-kaparthi:${{ secrets.CUSTOM_PAT }}@github.com/${{ github.repository }}
           git subtree push --prefix dist origin gh-pages
       - name: Deploy to GitHub Pages
         id: deployment
