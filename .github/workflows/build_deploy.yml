@@ -43,6 +43,14 @@ jobs:
           repository: sindhura-kaparthi/speech-assistant-frontend-test
           ref: gh-pages
           path: speech-assistant-frontend-test
+      - name: push artifact
+        working-directory: speech-assistant-frontend-test/
+        run: |
+          git config user.name sindhura-kaparthi
+          git config user.email sindhura.kaparthi@thoughtworks.com
+          git add .
+          git commit -m "Release of sa"
+          git push 'https://sindhura-kaparthi@github.com/bahmni/speech-assistant-frontend-test.git' gh-pages
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
