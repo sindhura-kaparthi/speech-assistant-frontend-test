@@ -41,9 +41,7 @@ jobs:
       - uses: actions/checkout@v1
         with:
           persist-credentials: true
-          repository: sindhura-kaparthi/speech-assistant-frontend-test
           ref: main
-          path: speech-assistant-frontend-test
       - name: push artifact
         working-directory: speech-assistant-frontend-test/
         run: |
