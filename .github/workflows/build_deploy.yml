@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@v3
         with:
           ref: gh-pages
-          persist-credentials: false
+          path: speech-assistant-frontend-test
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
