@@ -43,7 +43,6 @@ jobs:
           persist-credentials: true
           ref: main
       - name: push artifact
-        working-directory: speech-assistant-frontend-test/
         run: |
           git config user.name sindhura-kaparthi
           git config user.email sindhura.kaparthi@thoughtworks.com
