@@ -29,5 +29,5 @@ jobs:
       - name: Deploy with gh-pages
         run: |
           git remote set-url origin https://sindhura-kaparthi:${{ secrets.CUSTOM_PAT }}@github.com/${{ github.repository }}
-          yarn deploy -- -u "github-actions-bot <support+actions@github.com>" --message "Version 2"
+          yarn deploy -- -u "github-actions-bot <support+actions@github.com>" --message ${{ github.event.head_commit.message }}
      
