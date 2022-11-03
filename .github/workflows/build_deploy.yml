@@ -19,6 +19,6 @@ jobs:
       - name: Deploy with gh-pages
         run: |
           git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{ github.repository }}
-          yarn deploy -- -u "github-actions-bot <support+actions@github.com>" --message "${{ github.event.head_commit.message }}"
+          yarn deploy -u "github-actions-bot <support+actions@github.com>" --message "${{ github.event.head_commit.message }}"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
