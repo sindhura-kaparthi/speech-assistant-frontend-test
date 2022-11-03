@@ -33,7 +33,7 @@ jobs:
     steps:
       - name: Deploy with gh-pages
         run: |
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${{ github.repository }}
+          git remote set-url origin https://sindhura-kaparthi:${GITHUB_TOKEN}@github.com/${{ github.repository }}
           yarn deploy
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
