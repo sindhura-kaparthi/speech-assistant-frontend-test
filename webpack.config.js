@@ -41,7 +41,6 @@ const config = {
           filename: './fonts/[name][ext]',
         },
       },
-
       {
         use: 'swc-loader',
         test: /\.ts|tsx$/,
